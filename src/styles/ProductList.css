@@ -1,0 +1,59 @@
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.product-card {
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+  border: 1px solid var(--primary-200, #FFD198);
+}
+
+.product-image {
+  width: 100%;
+  background-color: #f5f5f5;
+}
+.product-image img{
+  width: 100%;
+  height: auto;
+}
+
+.product-content {
+  padding: 16px;
+}
+
+.product-content h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.product-content p {
+  text-align: center;
+}
+.descuento{
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background-color: #E14040;
+  color: white;
+  font-weight: 500;
+  border-radius: 10px;
+  padding: 2px 6px;
+}
+.precio, .precio-por-litro{
+  font-size: 22px;
+  color: black;
+  font-weight: 400;
+}
+.supermercado{
+  font-size: 14px;
+  margin-bottom: 10px;
+}
