@@ -4,10 +4,29 @@ import "../styles/Filtros.scss"
 export default function Filtros() {
   return (
     <div className='filtros'>
+      <p>Género</p>
+      <div className="form-check">
+        <input className="form-check-input" type="checkbox" value="" id="checkbox-femenino" />
+        <label className="form-check-label" for="checkbox-femenino">
+          Femenino
+        </label>
+      </div>
+      <div className="form-check">
+        <input className="form-check-input" type="checkbox" value="" id="checkbox-masculino" />
+        <label className="form-check-label" for="checkbox-masculino">
+          Masculino
+        </label>
+      </div>
+      <div className="form-check">
+        <input className="form-check-input" type="checkbox" value="" id="checkbox-nobinario" />
+        <label className="form-check-label" for="checkbox-nobinario">
+          No binario
+        </label>
+      </div>
       <p>Marcas</p>
       <div className="form-check">
-        <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
-        <label className="form-check-label" for="flexCheckDefault">
+        <input className="form-check-input" type="checkbox" value="" id="checkbox-quilmes" />
+        <label className="form-check-label" for="checkbox-quilmes">
           Quilmes
         </label>
       </div>
