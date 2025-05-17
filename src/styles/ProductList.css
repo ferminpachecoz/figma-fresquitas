@@ -16,11 +16,13 @@
 
 .product-image {
   width: 100%;
+  padding: 1.5em;
   background-color: #f5f5f5;
 }
 .product-image img{
   width: 100%;
   height: auto;
+  border-radius: 8px;
 }
 
 .product-content {

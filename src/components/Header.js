@@ -1,13 +1,32 @@
 import "../styles/Header.scss"
+import { useState, useEffect } from "react"
 
-export default function Header() {
+export default function Header({ onSearch, initialValue = "" }) {
+  const [searchTerm, setSearchTerm] = useState(initialValue)
+
+  // Update local state when initialValue changes
+  useEffect(() => {
+    setSearchTerm(initialValue)
+  }, [initialValue])
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const valor = e.target.querySelector("input").value
+    onSearch(valor)
+  }
   return (
     <div className='header'>
       <img src="logo-improv.png" alt="" />
-      <div className="search-container">
-          <input type="text" class="search" placeholder="¿Qué fresquitas querés comprar hoy?" />
+      <form className="search-container" onSubmit={handleSubmit}>
+          <input 
+            type="text" 
+            className="search" 
+            placeholder="¿Qué fresquitas querés comprar hoy?" 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
           <i className="bi bi-search"></i>
-      </div>
+      </form>
     </div>
   )
 }
