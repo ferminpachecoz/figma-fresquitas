@@ -1,7 +1,7 @@
 import "../styles/Header.scss"
 import { useState, useEffect } from "react"
 
-export default function Header({ onSearch, initialValue = "" }) {
+export default function Header({ onSearch, initialValue = "", clearSearch }) {
   const [searchTerm, setSearchTerm] = useState(initialValue)
 
   // Update local state when initialValue changes
@@ -25,7 +25,19 @@ export default function Header({ onSearch, initialValue = "" }) {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <i className="bi bi-search"></i>
+          {searchTerm ? (
+            <i 
+              className="bi bi-x-circle clear-icon" 
+              onClick={() => {
+                setSearchTerm("");
+                clearSearch(); // Llama a la función que limpia los productos
+              }}
+              style={{ cursor: "pointer", marginLeft: "8px" }}
+              title="Borrar búsqueda"
+            ></i>
+          ):(
+            <i className="bi bi-search"></i>
+          )}
       </form>
     </div>
   )

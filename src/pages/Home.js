@@ -123,7 +123,7 @@ export default function Home() {
 
   return (
     <>
-      <Header onSearch={handleSearch} initialValue={searchTerm} />
+      <Header onSearch={handleSearch} clearSearch={handleClearSearch} initialValue={searchTerm} />
       <div className='row'>
         <div className='col-3'>
           <Filtros onFilter={handleFilter} onCheck={handleCheck} />
