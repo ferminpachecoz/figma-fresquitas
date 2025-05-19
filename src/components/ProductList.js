@@ -22,6 +22,9 @@ const ProductList = ({products, loading}) => {
           <LoadingCard />
           <LoadingCard />
           <LoadingCard />
+          <LoadingCard />
+          <LoadingCard />
+          <LoadingCard />
         </>
       ) : (
         // Display actual products once loaded

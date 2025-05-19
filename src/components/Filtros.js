@@ -1,28 +1,27 @@
 import React from 'react'
 import "../styles/Filtros.scss"
 
-export default function Filtros({ onFilter, selectedFilter }) {
+export default function Filtros({ onFilter, selectedFilter, onCheck }) {
   const supermarkets = ["Coto", "Disco", "Carrefour", "Chango Mas", "Día", "Bonprix"]
-
+  const handleCheckbox=(e)=>{
+    const isChecked = e.target.checked;
+    const value = isChecked ? e.target.value : "";  // Si está desmarcado, string vacío
+    onCheck(value)
+  }
   return (
     <div className='filtros'>
-      <p className='mb-1'>Género</p>
-      <div className="form-check">
-        <input className="form-check-input" type="checkbox" value="" id="checkbox-femenino" />
-        <label className="form-check-label" htmlFor="checkbox-femenino">
-          Femenino
-        </label>
-      </div>
-      <div className="form-check">
-        <input className="form-check-input" type="checkbox" value="" id="checkbox-masculino" />
-        <label className="form-check-label" htmlFor="checkbox-masculino">
-          Masculino
-        </label>
-      </div>
+      <p className='mb-1'>Preferencias</p>
       <div className="form-check mb-4">
-        <input className="form-check-input" type="checkbox" value="" id="checkbox-nobinario" />
-        <label className="form-check-label" htmlFor="checkbox-nobinario">
-          No binario
+        <input 
+        className="form-check-input" 
+        name='radio-sin-alcohol' 
+        type="checkbox" 
+        value="sin-alcohol" 
+        id="checkbox-gay" 
+        onChange={(e) => handleCheckbox(e)}
+        />
+        <label className="form-check-label" htmlFor="checkbox-gay">
+          Soy gay
         </label>
       </div>
       <p className='mb-1'>Marcas</p>

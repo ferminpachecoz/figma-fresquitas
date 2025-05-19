@@ -39,7 +39,6 @@ export default function Home() {
       }
 
       const data = await response.json()
-      console.log(data)
 
       setProducts(data.resultados)
       setTotalPages(data.pages)
@@ -91,12 +90,44 @@ export default function Home() {
     searchProducts(term)
   }
 
+  const buscarSinAlcohol = async (page)=>{
+    setLoading(true)
+    try {
+      let url = `https://fresquitas-api.fly.dev/cervezas/sin-alcohol?page=${page}&limit=${limit}`
+
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error("Failed to fetch products")
+      }
+
+      const data = await response.json()
+
+      setProducts(data.resultados)
+      setTotalPages(data.pages)
+      setCurrentPage(data.page)
+      setLoading(false)
+    } catch (error) {
+      console.error("Fetch error:", error)
+      setError(error.message)
+      setLoading(false)
+    }
+  }
+
   const handleFilter = (supermarket) => {
     setSelectedSupermarket(supermarket)
     // Reset to page 1 when changing filters
     setCurrentPage(1)
   }
 
+  const handleCheck = (value)=>{
+    if (value){
+      buscarSinAlcohol(currentPage)
+    }else{
+      fetchProducts(currentPage, selectedSupermarket)
+    }
+    setCurrentPage(1)
+  }
+  
   const handlePageChange = (page) => {
     setCurrentPage(page)
   }
@@ -114,7 +145,7 @@ export default function Home() {
       <Header onSearch={handleSearch} initialValue={searchTerm} />
       <div className='row'>
         <div className='col-3'>
-          <Filtros onFilter={handleFilter} />
+          <Filtros onFilter={handleFilter} onCheck={handleCheck} />
         </div>
         <div className='col-9'>
           <AnimatePresence mode="wait">
