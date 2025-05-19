@@ -14,23 +14,27 @@ export default function Home() {
   const [selectedSupermarket, setSelectedSupermarket] = useState("")
   const [totalPages, setTotalPages] = useState(1)
   const [isSearchActive, setIsSearchActive] = useState(false)
+  const [preference, setPreference] = useState("")
 
   // Products per page
   const limit = 12
 
   useEffect(() => {
     if (!isSearchActive) {
-      fetchProducts(currentPage, selectedSupermarket)
+      fetchProducts(currentPage, selectedSupermarket, preference)
     }
-  }, [currentPage, selectedSupermarket, isSearchActive])
+  }, [currentPage, selectedSupermarket, isSearchActive, preference])
 
   // Fetch products for regular pagination with optional supermarket filter
-  const fetchProducts = async (page, supermarket = "") => {
+  const fetchProducts = async (page, supermarket = "", preference="") => {
     setLoading(true)
     try {
       let url = `https://fresquitas-api.fly.dev/cervezas/baratas?page=${page}&limit=${limit}`
       if (supermarket) {
         url += `&supermercado=${encodeURIComponent(supermarket)}`
+      }
+      if(preference){
+        url+= `&query=${encodeURIComponent(preference)}`
       }
 
       const response = await fetch(url)
@@ -90,29 +94,6 @@ export default function Home() {
     searchProducts(term)
   }
 
-  const buscarSinAlcohol = async (page)=>{
-    setLoading(true)
-    try {
-      let url = `https://fresquitas-api.fly.dev/cervezas/sin-alcohol?page=${page}&limit=${limit}`
-
-      const response = await fetch(url)
-      if (!response.ok) {
-        throw new Error("Failed to fetch products")
-      }
-
-      const data = await response.json()
-
-      setProducts(data.resultados)
-      setTotalPages(data.pages)
-      setCurrentPage(data.page)
-      setLoading(false)
-    } catch (error) {
-      console.error("Fetch error:", error)
-      setError(error.message)
-      setLoading(false)
-    }
-  }
-
   const handleFilter = (supermarket) => {
     setSelectedSupermarket(supermarket)
     // Reset to page 1 when changing filters
@@ -121,9 +102,9 @@ export default function Home() {
 
   const handleCheck = (value)=>{
     if (value){
-      buscarSinAlcohol(currentPage)
+      setPreference(value)
     }else{
-      fetchProducts(currentPage, selectedSupermarket)
+      setPreference("")
     }
     setCurrentPage(1)
   }

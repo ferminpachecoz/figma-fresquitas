@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "../styles/Filtros.scss"
 
 export default function Filtros({ onFilter, selectedFilter, onCheck }) {
@@ -16,7 +16,7 @@ export default function Filtros({ onFilter, selectedFilter, onCheck }) {
         className="form-check-input" 
         name='radio-sin-alcohol' 
         type="checkbox" 
-        value="sin-alcohol" 
+        value="Sin Alcohol" 
         id="checkbox-gay" 
         onChange={(e) => handleCheckbox(e)}
         />
