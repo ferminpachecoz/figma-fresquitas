@@ -15,6 +15,8 @@ export default function Home() {
   const [totalPages, setTotalPages] = useState(1)
   const [isSearchActive, setIsSearchActive] = useState(false)
   const [preference, setPreference] = useState("")
+  const [marcas, setMarcas] = useState([])
+  const [marcaSeleccionada, setMarcaSeleccionada] = useState("")
 
   // Products per page
   const limit = 12
@@ -23,7 +25,11 @@ export default function Home() {
     if (!isSearchActive) {
       fetchProducts(currentPage, selectedSupermarket, preference)
     }
-  }, [currentPage, selectedSupermarket, isSearchActive, preference])
+  }, [currentPage, selectedSupermarket, isSearchActive, preference, marcaSeleccionada])
+
+  useEffect(()=>{
+    fetchMarcas()
+  },[])
 
   // Fetch products for regular pagination with optional supermarket filter
   const fetchProducts = async (page, supermarket = "", preference="") => {
@@ -35,6 +41,9 @@ export default function Home() {
       }
       if(preference){
         url+= `&query=${encodeURIComponent(preference)}`
+      }
+      if(marcaSeleccionada){
+        url+= `&marca=${encodeURIComponent(marcaSeleccionada)}`
       }
 
       const response = await fetch(url)
@@ -52,6 +61,20 @@ export default function Home() {
       console.error("Fetch error:", error)
       setError(error.message)
       setLoading(false)
+    }
+  }
+
+  const fetchMarcas = async ()=>{
+    try{
+      let url = `https://fresquitas-api.fly.dev/cervezas/marcas`
+      const response = await fetch(url)
+      if (!response.ok) {
+        throw new Error("Failed to fetch products")
+      }
+      const data = await response.json()
+      setMarcas(data)
+    }catch(error){
+      console.error(error)
     }
   }
 
@@ -108,6 +131,11 @@ export default function Home() {
     }
     setCurrentPage(1)
   }
+
+  const handleMarca = (value)=>{
+    setMarcaSeleccionada(value)
+    setCurrentPage(1)
+  }
   
   const handlePageChange = (page) => {
     setCurrentPage(page)
@@ -126,7 +154,7 @@ export default function Home() {
       <Header onSearch={handleSearch} clearSearch={handleClearSearch} initialValue={searchTerm} />
       <div className='row'>
         <div className='col-3'>
-          <Filtros onFilter={handleFilter} onCheck={handleCheck} />
+          <Filtros marcas={marcas} onFilter={handleFilter} onCheck={handleCheck} onMarca={handleMarca} />
         </div>
         <div className='col-9'>
           <AnimatePresence mode="wait">

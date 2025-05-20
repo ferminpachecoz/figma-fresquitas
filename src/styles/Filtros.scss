@@ -7,5 +7,15 @@
   label{
     font-weight: 500;
     color: #997141;
+    text-transform: capitalize;
+  }
+  .button-mostrar-mas{
+    border: none;
+    border-radius: 10px;
+    background-color: #E6AA61;
+    color: white;
+    font-weight: 500;
+    margin-bottom: 1em;
+    margin-top: 5px;
   }
 }
