@@ -10,23 +10,61 @@ export default function Filtros({ onFilter, selectedFilter, onCheck, marcas, onM
     onCheck(value)
   }
   return (
-    <div className='filtros'>
-      <p className='mb-1'>Preferencias</p>
-      <div className="form-check mb-4">
-        <input 
-        className="form-check-input" 
-        name='radio-sin-alcohol' 
-        type="checkbox" 
-        value="Sin Alcohol" 
-        id="checkbox-gay" 
-        onChange={(e) => handleCheckbox(e)}
-        />
-        <label className="form-check-label" htmlFor="checkbox-gay">
-          Soy gay
-        </label>
+    <div className='filtros row'>
+      <div className='col-6 col-lg-12'>
+        <div className='preferencias-container'>
+          <p className='mb-1'>Preferencias</p>
+          <div className="form-check mb-4">
+            <input 
+            className="form-check-input" 
+            name='radio-sin-alcohol' 
+            type="checkbox" 
+            value="Sin Alcohol" 
+            id="checkbox-gay" 
+            onChange={(e) => handleCheckbox(e)}
+            />
+            <label className="form-check-label" htmlFor="checkbox-gay">
+              Soy gay
+            </label>
+          </div>
+        </div>
+        <div className='supermercados-container'>
+          <p  className='mb-1'>Supermercado</p>
+          <div className="form-check">
+            <input 
+              className="form-check-input" 
+              type="radio" 
+              name="radio-filtros" 
+              value="" 
+              defaultChecked 
+              id="radio-all" 
+              onChange={(e) => onFilter(e.target.value)}
+            />
+            <label className="form-check-label" htmlFor="radio-all">
+              Todos
+            </label>
+          </div>
+          {
+            supermarkets.map((item,index)=>(
+              <div className="form-check" key={index}>
+                <input 
+                  className="form-check-input" 
+                  type="radio" 
+                  name="radio-filtros" 
+                  value={item} 
+                  id={"radio-"+item} 
+                  onChange={(e) => onFilter(e.target.value)}
+                />
+                <label className="form-check-label" htmlFor={"radio-"+item}>
+                  {item}
+                </label>
+              </div>
+            ))
+          }
+        </div>
       </div>
-      <p className='mb-1'>Marcas</p>
-      <div className='all-marcas'>
+      <div className='all-marcas col-6 col-lg-12'>
+        <p className='mb-1'>Marcas</p>
         <div className="form-check">
           <input 
           className="form-check-input" 
@@ -62,38 +100,6 @@ export default function Filtros({ onFilter, selectedFilter, onCheck, marcas, onM
           {mostrarMas ? 'Mostrar Menos' : 'Mostrar Más'}
         </button>
       </div>
-      <p  className='mb-1'>Supermercado</p>
-      <div className="form-check">
-        <input 
-          className="form-check-input" 
-          type="radio" 
-          name="radio-filtros" 
-          value="" 
-          defaultChecked 
-          id="radio-all" 
-          onChange={(e) => onFilter(e.target.value)}
-        />
-        <label className="form-check-label" htmlFor="radio-all">
-          Todos
-        </label>
-      </div>
-      {
-        supermarkets.map((item,index)=>(
-          <div className="form-check" key={index}>
-            <input 
-              className="form-check-input" 
-              type="radio" 
-              name="radio-filtros" 
-              value={item} 
-              id={"radio-"+item} 
-              onChange={(e) => onFilter(e.target.value)}
-            />
-            <label className="form-check-label" htmlFor={"radio-"+item}>
-              {item}
-            </label>
-          </div>
-        ))
-      }
     </div>
   )
 }

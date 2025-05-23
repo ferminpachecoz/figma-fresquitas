@@ -152,11 +152,11 @@ export default function Home() {
   return (
     <>
       <Header onSearch={handleSearch} clearSearch={handleClearSearch} initialValue={searchTerm} />
-      <div className='row'>
-        <div className='col-3'>
+      <div className='row m-0 g-0'>
+        <div className='col-lg-3 col-12 p-0'>
           <Filtros marcas={marcas} onFilter={handleFilter} onCheck={handleCheck} onMarca={handleMarca} />
         </div>
-        <div className='col-9'>
+        <div className='col-12 col-lg-9 p-0'>
           <AnimatePresence mode="wait">
             {error ? (
               <motion.div

@@ -38,3 +38,12 @@
     }
   }
 }
+@media (max-width: 425px){
+  .header{
+    flex-direction: column;
+    height: 220px;
+    .search-container{
+      padding-left: 0px;
+    }
+  }
+}
