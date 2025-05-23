@@ -26,40 +26,42 @@ export default function Filtros({ onFilter, selectedFilter, onCheck, marcas, onM
         </label>
       </div>
       <p className='mb-1'>Marcas</p>
-      <div className="form-check">
-        <input 
-        className="form-check-input" 
-        type="radio" 
-        name='radio-marcas' 
-        value="" 
-        defaultChecked
-        id={`radio-todas`}
-        onChange={(e) => onMarca(e.target.value)}
-        />
-        <label className="form-check-label" htmlFor={`radio-todas`}>
-          Todas
-        </label>
+      <div className='all-marcas'>
+        <div className="form-check">
+          <input 
+          className="form-check-input" 
+          type="radio" 
+          name='radio-marcas' 
+          value="" 
+          defaultChecked
+          id={`radio-todas`}
+          onChange={(e) => onMarca(e.target.value)}
+          />
+          <label className="form-check-label" htmlFor={`radio-todas`}>
+            Todas
+          </label>
+        </div>
+        {marcas &&
+          (mostrarMas ? marcas : marcas.slice(0, 10)).map((item, index) => (
+            <div className="form-check" key={index}>
+              <input 
+              className="form-check-input" 
+              type="radio" 
+              name='radio-marcas' 
+              value={item} 
+              id={`radio-${item}`}
+              onChange={(e) => onMarca(e.target.value)}
+              />
+              <label className="form-check-label" htmlFor={`radio-${item}`}>
+                {item}
+              </label>
+            </div>
+          ))
+        }
+        <button className='button-mostrar-mas' onClick={() => setMostrarMas(!mostrarMas)}>
+          {mostrarMas ? 'Mostrar Menos' : 'Mostrar Más'}
+        </button>
       </div>
-      {marcas &&
-        (mostrarMas ? marcas : marcas.slice(0, 10)).map((item, index) => (
-          <div className="form-check" key={index}>
-            <input 
-            className="form-check-input" 
-            type="radio" 
-            name='radio-marcas' 
-            value={item} 
-            id={`radio-${item}`}
-            onChange={(e) => onMarca(e.target.value)}
-            />
-            <label className="form-check-label" htmlFor={`radio-${item}`}>
-              {item}
-            </label>
-          </div>
-        ))
-      }
-      <button className='button-mostrar-mas' onClick={() => setMostrarMas(!mostrarMas)}>
-        {mostrarMas ? 'Mostrar Menos' : 'Mostrar Más'}
-      </button>
       <p  className='mb-1'>Supermercado</p>
       <div className="form-check">
         <input 
